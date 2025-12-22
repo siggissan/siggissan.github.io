@@ -5,26 +5,164 @@
   <meta charset="UTF-8">
   <title>Dennis Sandin AB</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <header>
-    <h1>Dennis Sandin</h1>
-    <p>Portfolio</p>
-  </header>
+<header>
+  <h1>Dennis Sandin</h1>
+  <p>Portfolio</p>
+</header>
 
-  <main class="portfolio">
+<main class="portfolio-container">
 
-    <div class="card">
-      <img src="images/porträtt.jpg" alt="Porträtt">
-      <div class="text">
-        <h2>Porträtt</h2>
-        <p>En bild på mig!</p>
+  <!-- Vänster kolumn -->
+  <div class="portfolio-images">
+
+    <div class="featured-card">
+      <img src="images/adhoc.jpg" alt="Ad Hoc" onclick="openGallery(0)">
+      <p class="caption">Kompani AD HOC</p>
+    </div>
+
+    <h3 class="section-title">Föreställningar</h3>
+
+    <div class="small-images">
+      <div class="card">
+        <img src="images/pelle.jpg" alt="Pelle" onclick="openGallery(1)">
+        <p class="caption">
+          PELLE SVANSLÖS<br>
+          Uppsala Stadsteater 2024
+        </p>
+      </div>
+
+      <div class="card">
+        <img src="images/mlimas.jpg" alt="Mlimas berättelse" onclick="openGallery(2)">
+        <p class="caption">
+          MLIMAS BERÄTTELSE<br>
+          Teater Playhouse våren 2023
+        </p>
+      </div>
+      
+      <div class="card">
+        <img src="images/enhandelsresande.jpg" alt="En handelsresande" onclick="openGallery(3)">
+        <p class="caption">
+          EN HANDELSRESANDES DÖD<br>
+          Malmö Stadsteater 2019
+        </p>
       </div>
     </div>
 
+  </div>
 
-  </main>
+  <!-- Höger kolumn -->
+  <div class="stationary-text">
+    <img src="images/portratt.jpg" alt="Profilbild" class="stationary-img">
+    <h2>Om mig</h2>
+    <p>dennissandin@hotmail.com</p>
+    <p>070-372 11 46</p>
+    <p>Här kan det stå en massa saker om man vill!</p>
+  </div>
+
+</main>
+
+<!-- Lightbox -->
+<div id="lightbox" onclick="closeLightbox()">
+  <div id="lightbox-content" onclick="event.stopPropagation()">
+    <button id="prev-btn" onclick="prevImage(event)">&#8249;</button>
+    <button id="next-btn" onclick="nextImage(event)">&#8250;</button>
+    <img id="lightbox-img" src="">
+    <p id="lightbox-text"></p>
+    <button id="next-btn" onclick="nextImage(event)">&#8250;</button>
+  </div>
+</div>
+
+<div id="lightbox" id="lightbox">
+  <div id="lightbox-content">
+    <button id="prev-btn" onclick="prevImage(event)">&#10094;</button>
+    
+    <img id="lightbox-img" src="" onclick="event.stopPropagation()">
+    <p id="lightbox-text" onclick="event.stopPropagation()"></p>
+    
+    <button id="next-btn" onclick="nextImage(event)">&#10095;</button>
+  </div>
+</div>
+
+
+<script>
+const galleries = [
+  {
+    images: [
+      'images/adhoc.jpg',
+      'images/adhoc1.jpg',
+      'images/adhoc2.jpg'
+    ],
+    text: [
+      'Okej så dethär är mer ett förslag på att man kan ha något större här? eller inte?'
+    ]
+  },
+  {
+    images: [
+      'images/pelle.jpg',
+      'images/pelle1.jpg'],
+    text: [
+      'PELLE SVANSLÖS \n Uppsala Stadsteater 2024\n\n bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.'
+    ]
+  },
+    {
+    images: ['images/mlimas.jpg',
+             'images/mlimas1.jpg'],
+    text: [
+      'MLIMAS BERÄTTELSE \n Teater Playhouse 2023\n\n bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla. '
+    ]
+  },
+  {
+    images: ['images/enhandelsresande.jpg',
+             'images/enhandelsresande1.jpg'],
+    text: [
+      'EN HANDELSRESANDES DÖD \n Malmö Stadsteater 2019\n\n bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla. '
+    ]
+  }
+];
+
+let currentGallery = null;
+let currentIndex = 0;
+
+function openGallery(index) {
+  currentGallery = galleries[index];
+  currentIndex = 0;
+  showImage();
+  document.getElementById('lightbox').style.display = 'flex';
+  // Nollställ scrollpositionen så texten börjar om från toppen
+  document.getElementById('lightbox-content').scrollTop = 0;
+}
+
+function showImage() {
+  document.getElementById('lightbox-img').src =
+    currentGallery.images[currentIndex];
+  
+  // Här hämtas nu alltid den första texten (index 0) oavsett bild
+  document.getElementById('lightbox-text').textContent =
+    currentGallery.text[0] || '';
+}
+
+function nextImage(e) {
+  e.stopPropagation();
+  currentIndex = (currentIndex + 1) % currentGallery.images.length;
+  showImage();
+}
+
+function prevImage(e) {
+  e.stopPropagation();
+  currentIndex =
+    (currentIndex - 1 + currentGallery.images.length) %
+    currentGallery.images.length;
+  showImage();
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').style.display = 'none';
+}
+</script>
 
 </body>
 </html>

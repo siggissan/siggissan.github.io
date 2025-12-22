@@ -1,45 +1,224 @@
+
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  background-color: #f2f2f2;
-  color: #111;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 200;
+  letter-spacing: 1px;
+  background-color: #000000;
+  color: #ffffff;
+  line-height: 1.6;
 }
 
 header {
   text-align: center;
-  padding: 4rem 2rem;
+  padding: 8rem 2rem;
+  background-color: #000000;
 }
 
-.portfolio {
+header h1 {
+  font-weight: 200;
+  font-size: 6rem;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  margin: 0;
+  line-height: 1;
+  transform: scaleX(0.9);
+  display: inline-block;
+}
+
+header p {
+  font-weight: 200;
+  letter-spacing: 12px;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  opacity: 0.6;
+  margin-top: 2rem;
+}
+
+.stationary-img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+/* Portfolio layout */
+.portfolio-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: 70% 30%;
   gap: 2rem;
   padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.card {
-  background: white;
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+/* Vänsterkolumnen */
+.portfolio-images {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.featured-card img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
   transition: transform 0.3s ease;
 }
 
-.card:hover {
-  transform: translateY(-6px);
+.small-images {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
 }
 
-.card img {
+.small-images .card img {
   width: 100%;
-  height: 220px;
+  aspect-ratio: 1/1;
   object-fit: cover;
+  transition: transform 0.3s ease;
 }
 
-.text {
-  padding: 1.2rem;
+.small-images .card img:hover,
+.featured-card img:hover {
+  transform: scale(1.2);
 }
 
+.caption {
+  text-align: center;
+  margin-top: 0.5rem;
+  color: #ffffff;
+  font-size: 0.9rem;
+}
+
+.section-title {
+  margin: 1rem 0;
+  font-size: 1.2rem;
+  color: #ffffff;
+  text-align: left;
+  letter-spacing: 1px;
+  font-weight: 200;
+}
+
+.stationary-text {
+  background-color: #111111;
+  padding: 1.5rem;
+  border-radius: 6px;
+}
+
+.stationary-text p {
+  margin: 0.5rem 0;
+}
+
+/* Lightbox */
+#lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+#lightbox-content {
+  max-width: 70%;
+  max-height: 90vh;      /* max 90% av viewport-höjden */
+  overflow-y: auto;      /* scroll om texten blir lång */
+  text-align: center;
+  color: #ffffff;
+  padding: 1rem;
+  position: relative;
+  border-radius: 6px;
+  align-items: center;
+}
+
+/* Dölj scrollbar för Chrome, Safari och Edge */
+#lightbox-content::-webkit-scrollbar {
+  display: none;
+}
+
+/* Dölj scrollbar för Firefox och IE/Edge */
+#lightbox-content {
+  -ms-overflow-style: none;  /* IE och Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+
+#lightbox-img, 
+#lightbox-text, 
+#prev-btn, 
+#next-btn {
+  pointer-events: auto;  /* Men dessa ska man kunna klicka på som vanligt */
+}
+
+#lightbox img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+}
+
+#lightbox-text::first-line {
+  font-size: 1.5rem;       /* Gör texten större */
+  font-weight: bold;       /* Gör den fetstilt */
+  color: #ffffff;          /* Valfri färg, t.ex. kritvit */
+  line-height: 2;          /* Ger lite extra luft under rubriken */
+}
+
+#lightbox-text {
+  font-size: 1rem;
+  line-height: 1.4;
+  white-space: pre-wrap;  /* tolka \n som ny rad */
+  text-align: left;       /* vänsterjustera texten */
+}
+
+
+/* Next / Prev knappar */
+
+#prev-btn, #next-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;             /* Ingen bakgrund som standard */
+  border: none;
+  color: rgba(255, 255, 255, 0.5); /* Svagt vita som standard */
+  font-size: 5rem;              /* Större storlek för lyxigare känsla */
+  font-weight: 100;             /* Extra tunna */
+  padding: 0 2rem;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s ease;    /* Mjuk övergång vid hover */
+  z-index: 1010;                /* Se till att de ligger överst */
+}
+
+/* Placera pilarna lite längre ut mot kanterna */
+#prev-btn { left: 0; }
+#next-btn { right: 0; }
+
+/* Effekt när man håller musen över */
+#prev-btn:hover, #next-btn:hover {
+  color: rgba(255, 255, 255, 1); /* Blir helt vita vid hovring */
+  background: rgba(255, 255, 255, 0.05); /* Extremt svag bakgrundstoning */
+  transform: translateY(-50%) scale(1.1); /* Blir lite större */
+}
+
+@media (max-width: 800px) {
+  .portfolio-container {
+    grid-template-columns: 1fr;
+  }
+  .small-images {
+    grid-template-columns: 1fr;
+  }
+}
