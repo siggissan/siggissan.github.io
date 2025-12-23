@@ -222,3 +222,27 @@ header p {
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 800px) {
+  /* Gör så att huvudlayouten blir en enda kolumn (texten hamnar under bilderna) */
+  .portfolio-container {
+    grid-template-columns: 1fr;
+  }
+
+  /* Ändra de små bilderna från 2 till 2 i rad (eller 1 om skärmen är jätteliten) */
+  .small-images {
+    grid-template-columns: repeat(2, 1fr); /* Detta tvingar fram 2 kolumner */
+    gap: 10px; /* Lite mindre mellanrum på mobilen ser ofta bättre ut */
+  }
+
+  /* Bonus: Om du vill att de ska bli 1 i rad på riktigt små mobiler */
+  @media (max-width: 480px) {
+    .small-images {
+      grid-template-columns: 1fr;
+    }
+    
+    header h1 {
+      font-size: 3rem; /* Gör rubriken mindre så den inte klipper */
+    }
+  }
+}
