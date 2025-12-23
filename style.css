@@ -90,6 +90,7 @@ header p {
   transform: scale(1.2);
 }
 
+
 .caption {
   text-align: center;
   margin-top: 0.5rem;
@@ -115,6 +116,7 @@ header p {
 .stationary-text p {
   margin: 0.5rem 0;
 }
+
 
 /* Lightbox */
 #lightbox {
@@ -214,14 +216,6 @@ header p {
   transform: translateY(-50%) scale(1.1); /* Blir lite större */
 }
 
-@media (max-width: 800px) {
-  .portfolio-container {
-    grid-template-columns: 1fr;
-  }
-  .small-images {
-    grid-template-columns: 1fr;
-  }
-}
 
 @media (max-width: 800px) {
   /* Gör så att huvudlayouten blir en enda kolumn (texten hamnar under bilderna) */
